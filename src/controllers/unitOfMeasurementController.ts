@@ -2,11 +2,11 @@ import { UnitType } from '../models/UnitOfMeasurement';
 import UnitOfMeasurementServices from '../services/UnitOfMeasurementServices'
 import { Response, Request } from 'express'
 
-const createUnitOfMeasurement = async (req: Request, res: Response): Promise<void> => {
-    const {name} = req.body;
+const postUnitOfMeasurement = async (req: Request, res: Response): Promise<void> => {
+    const {unitName} = req.body;
     try {
-        const newUnitOfMeasurement = await UnitOfMeasurementServices.createUnitOfMeasurement(name);
-        res.json(newUnitOfMeasurement);
+        const newUnitOfMeasurement = await UnitOfMeasurementServices.createUnitOfMeasurement(unitName);
+        res.status(201).json(newUnitOfMeasurement);
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({message: error.message});
@@ -16,10 +16,11 @@ const createUnitOfMeasurement = async (req: Request, res: Response): Promise<voi
     }
 }
 
-const findAllUnitOfMeasurement = async (req: Request, res: Response): Promise<void> => {
+const getAllUnitOfMeasurement = async (req: Request, res: Response): Promise<void> => {
     try {
-        const allUnitOfMeasurement = await UnitOfMeasurementServices.findAllUnitOfMeasurement()
-        res.json(allUnitOfMeasurement)
+        const allUnitOfMeasurement = await UnitOfMeasurementServices.findAllUnitOfMeasurement();
+        console.log(allUnitOfMeasurement)
+        res.status(200).json(allUnitOfMeasurement)
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({message: error.message});
@@ -29,11 +30,11 @@ const findAllUnitOfMeasurement = async (req: Request, res: Response): Promise<vo
     }
 }
 
-const findUnitOFMeasurementByName = async (req: Request, res: Response): Promise<void> => {
+const getUnitOFMeasurementByName = async (req: Request, res: Response): Promise<void> => {
     const {unitName} = req.params;
     try {
-        const unitOFMeasurement = await UnitOfMeasurementServices.findUnitOfMeasurementByName(unitName as UnitType);
-        res.json(unitOFMeasurement);
+        const unit = await UnitOfMeasurementServices.findUnitOfMeasurementByName(unitName as UnitType);
+        res.status(200).json(unit)
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({message: error.message});
@@ -43,11 +44,27 @@ const findUnitOFMeasurementByName = async (req: Request, res: Response): Promise
     }
 };
 
+const getUnitOFMeasurementById = async (req: Request, res: Response): Promise<void> => {
+    const {unitId} = req.params;
+
+    try {
+        const unit = await UnitOfMeasurementServices.findUnitOfMeasurementById(unitId);
+        res.status(200).json(unit)
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(500).json({message: error.message});
+        } else {
+            res.status(500).json({message: "Erreur interne du serveur inattendue"});
+        }       
+    }
+}
+
 
 const unitOfMeasurementController = {
-    findAllUnitOfMeasurement,
-    findUnitOFMeasurementByName,
-    createUnitOfMeasurement
+    getAllUnitOfMeasurement,
+    getUnitOFMeasurementByName,
+    postUnitOfMeasurement,
+    getUnitOFMeasurementById
 }
 
 export default unitOfMeasurementController;

@@ -1,36 +1,13 @@
 import { Request, Response } from "express";
-import { formatIngredientName } from "../utils/formatedIngredientName";
-import NumberOfIngredientServices from "../services/NumberOfIngredientServices";
-import Dishes, { IDishes } from "../models/Dishes";
+import Dishes from "../models/Dishes";
 import DishesServices from "../services/DisheServices";
-import NumberOfIngredient, { INumberOfIngredient } from "../models/NumberOfIngredient";
+import NumberOfIngredient from "../models/NumberOfIngredient";
 
-const createDishe = async (req: Request, res: Response): Promise<void> => {
-    let {name, numbersOfIngredients, numberOfPerson} = req.body;
-    name = formatIngredientName(name) as string;
-    let arrayOfNumberOfIngredientsId: INumberOfIngredient[] = [];
+const postDish = async (req: Request, res: Response): Promise<void> => {
+    let {dishName, numbersOfIngredients, numberOfPerson} = req.body;
     try {
-        const createPromises = numbersOfIngredients.map(async ({ ingredient, unitOfMeasurement, quantity }: { ingredient: string, unitOfMeasurement: string, quantity: number }) => {
-            if (!ingredient || !unitOfMeasurement || !quantity) {
-                throw new Error("Données d'ingrédient incomplètes");
-            }
-            const numbersOfIngredientsIds = await NumberOfIngredientServices.newNumberOfIngredients(ingredient, unitOfMeasurement, quantity);
-            if (numbersOfIngredientsIds && numbersOfIngredientsIds._id) {
-                return numbersOfIngredientsIds._id as INumberOfIngredient;
-            } else {
-                throw new Error("Erreur lors de la création du nombre d'ingrédients");
-            }
-        });
-
-        arrayOfNumberOfIngredientsId = await Promise.all(createPromises);
-
-        const newDishes: IDishes = new Dishes({
-            name: name,
-            ingredient: arrayOfNumberOfIngredientsId,
-            numberOfPerson: numberOfPerson,
-        });
-        await newDishes.save();
-        res.status(201).json({message: "Plat créé avec succès"});
+        const newDish = await DishesServices.createDish(dishName, numbersOfIngredients, numberOfPerson);
+        res.status(201).json({message: "Plat créé avec succès", dish: newDish});
     } catch (error) {
         console.error(error);
         if (error instanceof Error) {
@@ -41,7 +18,7 @@ const createDishe = async (req: Request, res: Response): Promise<void> => {
     }
 }
 
-const findSingleDish = async(req:Request, res:Response):Promise<void> => {
+const getSingleDish = async(req:Request, res:Response):Promise<void> => {
     const {idDish} = req.params;
 
     if (!idDish) {
@@ -63,7 +40,7 @@ const findSingleDish = async(req:Request, res:Response):Promise<void> => {
 
 }
 
-const findAllDishes = async(req:Request, res:Response):Promise<void> => {
+const getAllDishes = async(req:Request, res:Response):Promise<void> => {
     try {
         const allDishes = await Dishes.find();
 
@@ -78,55 +55,11 @@ const findAllDishes = async(req:Request, res:Response):Promise<void> => {
     }
 }
 
-const updateDishe = async (req: Request, res: Response): Promise<void> => {
-    const { disheId, name, numbersOfIngredients, numberOfPerson } = req.body;
-    const formattedName = formatIngredientName(name);
-    const dishe = await Dishes.findById(disheId);
-
-    if (!dishe) {
-        res.status(404).json({ message: "Plat introuvable" });
-        return;
-    }
-
+const updateDish = async (req: Request, res: Response): Promise<void> => {
+    const { disheId, dishName, numbersOfIngredients, numberOfPerson } = req.body;
     try {
-        const updatePromises = dishe.ingredient.map(async (idNumberIngredient) => {
-            if (!idNumberIngredient) {
-                throw new Error("ID Number ingredient introuvable");
-            }
-
-            const matchingIngredient = numbersOfIngredients.find(
-                (updatedIngredient: INumberOfIngredient) => updatedIngredient._id == idNumberIngredient
-            );
-
-            if (matchingIngredient) {
-                const updateIdNumberOfIngredient = await NumberOfIngredient.findOneAndUpdate(
-                    { _id: idNumberIngredient },
-                    {
-                        ingredient: matchingIngredient.ingredient,
-                        unitOfMeasurement: matchingIngredient.unitOfMeasurement,
-                        quantity: matchingIngredient.quantity
-                    },
-                    { new: true }
-                );
-
-                if (!updateIdNumberOfIngredient) {
-                    throw new Error("Objet numberOfIngredient introuvable");
-                }
-            }
-        });
-
-        await Promise.all(updatePromises);
-
-        await Dishes.findByIdAndUpdate(
-            disheId,
-            {
-                name: formattedName,
-                numberOfPerson: numberOfPerson
-            },
-            { new: true }
-        );
-
-        res.status(200).json({ message: "Plat mis à jour avec succès" });
+        const updatedDish = await DishesServices.modifyDish(disheId, dishName, numbersOfIngredients, numberOfPerson);
+        res.status(200).json({ message: "Plat mis à jour avec succès", dish: updatedDish });
     } catch (error) {
         console.error(error);
         if (error instanceof Error) {
@@ -137,33 +70,11 @@ const updateDishe = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-const deleteDishe = async (req: Request, res: Response): Promise<void> => {
+const deleteDish = async (req: Request, res: Response): Promise<void> => {
     const { idDishe } = req.params;
 
-    const dish = await Dishes.findById(idDishe);
-
-    if (!dish) {
-        res.status(404).json({ message: "Plat non trouvé" });
-        return;
-    }
-
     try {
-        const deletePromises = dish.ingredient.map(async (idNumberIngredient) => {
-            if (!idNumberIngredient) {
-                throw new Error('ID Number ingredient introuvable');
-            }
-
-            const result = await NumberOfIngredient.deleteOne({ _id: idNumberIngredient });
-
-            if (result.deletedCount === 0) {
-                throw new Error("Erreur lors de la suppression de l'ingrédient");
-            }
-        });
-
-        await Promise.all(deletePromises);
-
-        await Dishes.deleteOne({ _id: dish._id });
-
+        await DishesServices.removeDish(idDishe);
         res.status(200).json({ message: "Plat supprimé avec succès" });
     } catch (error) {
         console.error(error);
@@ -176,11 +87,11 @@ const deleteDishe = async (req: Request, res: Response): Promise<void> => {
 };
 
 const dishesController = {
-    createDishe,
-    updateDishe,
-    deleteDishe,
-    findSingleDish,
-    findAllDishes
+    postDish,
+    updateDish,
+    deleteDish,
+    getSingleDish,
+    getAllDishes
 }
 
 export default dishesController;

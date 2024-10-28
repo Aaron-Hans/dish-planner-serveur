@@ -1,4 +1,3 @@
-import { error } from 'console';
 import Ingredient, { IIngredient } from '../models/Ingredient';
 import {formatIngredientName} from '../utils/formatedIngredientName';
 
@@ -12,7 +11,7 @@ const findIngredientByName = async (name: string): Promise<IIngredient> => {
     const formattedIngredientName = formatIngredientName(name);
     const ingredient =  await Ingredient.findOne({ name: formattedIngredientName});
     if (!ingredient) {
-        throw error("Ingredient introuvable")
+        throw new Error("Ingredient introuvable")
     }
     return ingredient
 }
@@ -20,7 +19,7 @@ const findIngredientByName = async (name: string): Promise<IIngredient> => {
 const findIngredientById = async (idIngredient:string): Promise<IIngredient> => {
     const ingredient = await Ingredient.findById(idIngredient);
     if (!ingredient) {
-        throw error("ingredient introuvable");
+        throw new Error("ingredient introuvable");
     }
     return ingredient
 }

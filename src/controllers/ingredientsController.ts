@@ -28,13 +28,13 @@ const postIngredient = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-const findAllIngredients = async (req: Request, res: Response): Promise<void> => {
+const getAllIngredients = async (req: Request, res: Response): Promise<void> => {
     try {
         const allIngredients = await Ingredient.find();
         if (allIngredients.length === 0) {
             res.status(404).json({message: "Aucun ingrédient trouvé"});
         } else {
-            res.status(200).json({message: "liste des ingrédients", ingredients: allIngredients});
+            res.status(200).json(allIngredients);
         }
     } catch (error) {
         console.log(error);
@@ -46,15 +46,15 @@ const findAllIngredients = async (req: Request, res: Response): Promise<void> =>
     }
 };
 
-const findIngredientByName = async (req: Request, res: Response): Promise<void> => {
-    const {name} = req.params;
+const getIngredientByName = async (req: Request, res: Response): Promise<void> => {
+    const {ingredientName} = req.params;
 
     try {
-        const ingredient = await IngredientServices.findIngredientByName(name);
+        const ingredient = await IngredientServices.findIngredientByName(ingredientName);
         if (!ingredient) {
             res.status(404).json({message: "Ingredient non trouvé"});           
         } else {
-            res.status(200).json({message: "Ingrédient trouvé", ingredient: ingredient});
+            res.status(200).json(ingredient);
         }
     } catch (error) {
         console.log(error);
@@ -66,9 +66,8 @@ const findIngredientByName = async (req: Request, res: Response): Promise<void> 
     }
 };
 
-const findIngredientById = async (req: Request, res: Response): Promise<void> => {
+const getIngredientById = async (req: Request, res: Response): Promise<void> => {
     const { idIngredient } = req.params;
-    console.log(idIngredient);
 
     if (!idIngredient) {
         res.status(400).json({ message: "L'identifiant de l'ingrédient est requis." });
@@ -93,21 +92,20 @@ const findIngredientById = async (req: Request, res: Response): Promise<void> =>
     }    
 };
 
-const updateIngredient = async (req: Request, res: Response): Promise<void> => {
-    let {currentName, updatedName} = req.body;
+const putIngredient = async (req: Request, res: Response): Promise<void> => {
+    let {idIngredient, newIngredientName} = req.body;
 
-    currentName = formatIngredientName(currentName);
-    updatedName = formatIngredientName(updatedName);
+    newIngredientName = formatIngredientName(newIngredientName);
 
     try {
-        const ingredient = await Ingredient.findOne({ name: currentName });
+        const ingredient = await Ingredient.findById(idIngredient);
 
         if (!ingredient) {
             res.status(404).json({ message: "Ingrédient non trouvé." });
             return;
         } 
-        const result = await Ingredient.updateOne({ _id: ingredient._id }, { $set: {name: updatedName} });
-        res.status(200).json({ message: "Ingrédient mis à jour avec succès", result });
+        await Ingredient.updateOne({ _id: ingredient }, { $set: {name: newIngredientName} });
+        res.status(200).json({ message: "Ingrédient mis à jour avec succès"});
     } catch (error) {
         console.log(error);
         if (error instanceof Error) {
@@ -119,16 +117,14 @@ const updateIngredient = async (req: Request, res: Response): Promise<void> => {
 };
 
 const deleteIngredientByName = async (req: Request, res: Response): Promise<void> => {
-    let {ingredientToDelete} = req.params;
-    
-    ingredientToDelete = formatIngredientName(ingredientToDelete);
-    
+    let {idIngredient} = req.params;
+        
     try {
-        const result = await Ingredient.deleteOne({ name: ingredientToDelete });
+        const result = await Ingredient.deleteOne({ _id: idIngredient });
         if (result.deletedCount === 0) {
-            res.status(404).json({ message: `L'ingrédient ${ingredientToDelete} n'a pas été trouvé.` });
+            res.status(404).json({ message: `L'ingrédient ${idIngredient} n'a pas été trouvé.` });
         } else {
-            res.status(200).json({ message: `L'ingrédient ${ingredientToDelete} a été supprimé.` });
+            res.status(200).json({ message: `L'ingrédient ${idIngredient} a été supprimé.` });
         }
     } catch (error) {
         console.error('Error:', error);
@@ -142,10 +138,10 @@ const deleteIngredientByName = async (req: Request, res: Response): Promise<void
 
 const ingredientsController = {
     postIngredient,
-    updateIngredient,
-    findAllIngredients,
-    findIngredientByName,
-    findIngredientById,
+    putIngredient,
+    getAllIngredients,
+    getIngredientByName,
+    getIngredientById,
     deleteIngredientByName
 };
 
