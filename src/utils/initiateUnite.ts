@@ -1,7 +1,11 @@
-import { UnitType } from "../models/UnitOfMeasurement";
+import { UnitType } from "../models/Ingredient";
 
 export const initiateUnite = (quantity: number,unitOfMeasurement: UnitType) => {
     let restOfQuantity : number = 0;
+    if (unitOfMeasurement === UnitType.NBR) {
+        console.log(quantity, unitOfMeasurement)
+        return {quantity, unitOfMeasurement}
+    }
     if (unitOfMeasurement === UnitType.G && quantity >= 1000) {
         quantity = quantity / 1000;
         unitOfMeasurement = UnitType.KG;

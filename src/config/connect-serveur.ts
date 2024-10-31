@@ -1,11 +1,10 @@
 import express from 'express';
 const serveur = express();
 const port = process.env.PORT || 3000;
-import unitOFMeasurementRoutes from '../routes/unitOfMeasurementRoutes';
-import ingredientsRoutes from '../routes/ingredientRoutes';
-import numberOfIngredientsRoutes from '../routes/numberOfIngredientRoutes'
-import disheRoute from '../routes/disheRoutes'
-
+import productRoutes from '../routes/productRoutes';
+import ingredientRoutes from '../routes/ingredientRoutes'
+import recipeRoutes from '../routes/recipeRoutes'
+import shoppingListRoutes from '../routes/shoppingListRoutes'
 function connectToServeur() {
 
     
@@ -18,9 +17,9 @@ function connectToServeur() {
 }
 
 function serveurRoutes() {
-    serveur.use('/unit', unitOFMeasurementRoutes); 
-    serveur.use('/ingredient', ingredientsRoutes);
-    serveur.use('/number', numberOfIngredientsRoutes);
-    serveur.use('/dishe', disheRoute)
+    serveur.use('/product', productRoutes);
+    serveur.use('/ingredient', ingredientRoutes);
+    serveur.use('/recipe', recipeRoutes)
+    serveur.use('/list', shoppingListRoutes)
 }
 export { connectToServeur };

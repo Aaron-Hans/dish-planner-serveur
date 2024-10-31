@@ -1,13 +1,12 @@
 import { Request, Response } from "express";
-import Dishes from "../models/Dishes";
-import DishesServices from "../services/DisheServices";
-import NumberOfIngredient from "../models/NumberOfIngredient";
+import Recipe from "../models/Recipe";
+import RecipeServices from "../services/RecipeServices";
 
-const postDish = async (req: Request, res: Response): Promise<void> => {
-    let {dishName, numbersOfIngredients, numberOfPerson} = req.body;
+const postRecipe = async (req: Request, res: Response): Promise<void> => {
+    let {recipeName, listOfIngredient} = req.body;
     try {
-        const newDish = await DishesServices.createDish(dishName, numbersOfIngredients, numberOfPerson);
-        res.status(201).json({message: "Plat créé avec succès", dish: newDish});
+        const newRecipe = await RecipeServices.createRecipe(recipeName, listOfIngredient);
+        res.status(201).json({message: "Recette créé avec succès", recipe: newRecipe});
     } catch (error) {
         console.error(error);
         if (error instanceof Error) {
@@ -18,17 +17,17 @@ const postDish = async (req: Request, res: Response): Promise<void> => {
     }
 }
 
-const getSingleDish = async(req:Request, res:Response):Promise<void> => {
-    const {idDish} = req.params;
+const getRecipe = async(req:Request, res:Response):Promise<void> => {
+    const {recipeId} = req.params;
 
-    if (!idDish) {
+    if (!recipeId) {
         res.status(400).json({message: "L'identifiant du plat est requis."});
         return
     }
 
     try {
-        const dish = await DishesServices.getDish(idDish);
-        res.status(200).json(dish);
+        const recipe = await RecipeServices.findRecipe(recipeId);
+        res.status(200).json(recipe);
     } catch (error) {
         console.error(error);
         if (error instanceof Error) {
@@ -40,12 +39,12 @@ const getSingleDish = async(req:Request, res:Response):Promise<void> => {
 
 }
 
-const getAllDishes = async(req:Request, res:Response):Promise<void> => {
+const getAllRecipes = async(req:Request, res:Response):Promise<void> => {
     try {
-        const allDishes = await Dishes.find();
+        const allDishes = await Recipe.find();
 
         if (allDishes.length === 0) {
-            res.status(404).json({message: "aucun plat trouvé"})
+            res.status(404).json({message: "aucune recette trouvé"})
             return
         }
 
@@ -55,11 +54,11 @@ const getAllDishes = async(req:Request, res:Response):Promise<void> => {
     }
 }
 
-const updateDish = async (req: Request, res: Response): Promise<void> => {
-    const { disheId, dishName, numbersOfIngredients, numberOfPerson } = req.body;
+const updateRecipe = async (req: Request, res: Response): Promise<void> => {
+    const { recipeId, recipeName, listOfIngredient } = req.body;
     try {
-        const updatedDish = await DishesServices.modifyDish(disheId, dishName, numbersOfIngredients, numberOfPerson);
-        res.status(200).json({ message: "Plat mis à jour avec succès", dish: updatedDish });
+        const updatedRecipe = await RecipeServices.modifyRecipe(recipeId, recipeName, listOfIngredient);
+        res.status(200).json({ message: "Recette mis à jour avec succès", dish: updatedRecipe });
     } catch (error) {
         console.error(error);
         if (error instanceof Error) {
@@ -70,11 +69,11 @@ const updateDish = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-const deleteDish = async (req: Request, res: Response): Promise<void> => {
-    const { idDishe } = req.params;
+const deleteRecipe = async (req: Request, res: Response): Promise<void> => {
+    const { recipeId } = req.params;
 
     try {
-        await DishesServices.removeDish(idDishe);
+        await RecipeServices.removeRecipe(recipeId);
         res.status(200).json({ message: "Plat supprimé avec succès" });
     } catch (error) {
         console.error(error);
@@ -86,12 +85,12 @@ const deleteDish = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-const dishesController = {
-    postDish,
-    updateDish,
-    deleteDish,
-    getSingleDish,
-    getAllDishes
+const recipeController = {
+    postRecipe,
+    getRecipe,
+    getAllRecipes,
+    updateRecipe,
+    deleteRecipe
 }
 
-export default dishesController;
+export default recipeController;

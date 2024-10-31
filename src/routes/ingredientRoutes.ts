@@ -1,12 +1,9 @@
 import express from 'express';
 const router = express.Router();
-import ingredientsController from '../controllers/ingredientsController';
+import ingredientController from '../controllers/ingredientController';
 
-router.post('/post-ingredient', ingredientsController.postIngredient);
-router.put('/put-ingredient', ingredientsController.putIngredient);
-router.get('/get-all-ingredient', ingredientsController.getAllIngredients);
-router.get('/get-ingredient-by-name/:ingredientName', ingredientsController.getIngredientByName);
-router.get('/get-ingredient-by-id/:idIngredient', ingredientsController.getIngredientById);
-router.delete('/delete-ingredient-by-name/:idIngredient', ingredientsController.deleteIngredientByName);
+router.post('/post', ingredientController.postIngredient);
+router.put('/update', ingredientController.putIngredient);
+router.delete('/delete/:ingredientId', ingredientController.deleteIngredient);
 
 export default router;
