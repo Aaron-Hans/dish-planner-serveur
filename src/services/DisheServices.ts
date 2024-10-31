@@ -53,6 +53,8 @@ const getDish = async (idDish: string) : Promise<IDishes> => {
     if (!dish) {
         throw new Error('plat non trouvée');
     }
+    const ingredientIds = dish.ingredient.map((ingredientDetail: any) => ingredientDetail.ingredient._id).toString();
+    console.log(ingredientIds)
     return dish
 }
 
