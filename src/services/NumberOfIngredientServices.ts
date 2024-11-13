@@ -75,8 +75,59 @@ const updateNumberOfIngredient = async(idIngredientNumber:string, idIngredient:s
 
 }
 
+const addQuantityNumberOfIngredient = async(idIngredientNumber:string, idIngredient:string, idUnit:string, quantity:number ):Promise<INumberOfIngredient> => {
+
+    const ingredientNumber = await NumberOfIngredients.findById(idIngredientNumber)
+    .populate({
+        path: 'unitOfMeasurement',
+    })
+    console.log(ingredientNumber)
+    const ingredient = await Ingredient.findById(idIngredient);
+    const unit = await UnitOfMeasurement.findById(idUnit);
+
+    if (!ingredientNumber) {
+        throw new Error("Nombre d'ingrédients introuvable");
+    }
+    if (!ingredient) {
+        throw new Error("Ingrédient introuvable");
+    }
+    if (!unit) {
+        throw new Error("Unité de mesure introuvable");
+    }   
+
+    const newQuantity = Number(ingredientNumber.quantity) + quantity;
+
+    const convertorIngredientAndUnitValue = measurmentConvertor(newQuantity, ingredientNumber.unitOfMeasurement.name, unit.name);
+
+    console.log("convertorIngredientAndUnitValue", convertorIngredientAndUnitValue);
+
+    const unitAfterConvertor = await UnitOfMeasurement.findOne({ name: convertorIngredientAndUnitValue.unit });
+
+    if (!unitAfterConvertor) {
+        throw new Error("Un problème est survenu lors de la conversion d'unité");
+    }
+
+    
+    await NumberOfIngredients.updateOne(
+        {_id: ingredientNumber._id}, 
+        {$set: {
+            ingredient: ingredient._id, 
+            unitOfMeasurement: unitAfterConvertor._id, 
+            quantity: newQuantity
+        }}
+    )
+
+    const updatedNumberOfIngredient = await NumberOfIngredients.findById(idIngredientNumber);
+    if (!updatedNumberOfIngredient) {
+        throw new Error("Un problème est survenu lors de la mise à jour du nombre d'ingrédients");
+    }
+    return updatedNumberOfIngredient;
+}
+
+
 
 export default {
     createNumberOfIngredients,
-    updateNumberOfIngredient
+    updateNumberOfIngredient,
+    addQuantityNumberOfIngredient
 }

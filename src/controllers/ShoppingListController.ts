@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import ShoppingListServices from "../services/ShoppingListServices";
+import ShoppingList from "../models/ShoppingList";
 
 const postList = async(req: Request, res: Response):Promise<void> => {
     const {listName} = req.body;
@@ -28,9 +29,33 @@ const putList = async(req: Request, res: Response):Promise<void> => {
 
 }
 
+const deleteList = async(req: Request, res: Response):Promise<void> => {
+    const {idList} = req.params;
+    try {
+        const deletedList = await ShoppingList.findByIdAndDelete(idList);
+        res.status(200).json({message: "liste supprimée", deletedList})
+    } catch (error) {
+        console.error("Erreur lors de la suppression de la liste d'ingrédients:", error);
+        res.status(500).json({ message: "Erreur interne du serveur" });
+    }
+}
+
+const getList = async(req: Request, res: Response):Promise<void> => {
+    const {idList} = req.params;
+    try {
+        const list = await ShoppingListServices.findListById(idList);
+        res.status(200).json({message: "liste récupérée", list})
+    } catch (error) {
+        console.error("Erreur lors de la récupération de la liste d'ingrédients:", error);
+        res.status(500).json({ message: "Erreur interne du serveur" });
+    }
+}
+
 const shoppingListController = {
     postList,
-    putList
+    putList,
+    deleteList,
+    getList
 }
 
 export default shoppingListController;
