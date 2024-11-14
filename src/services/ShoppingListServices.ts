@@ -30,27 +30,57 @@ const updateList = async(idList: string, nameList: string, idNbrIngredientOrDish
     }
 
     const result = await addIngredientToTheListByDishOrNbrIngredient(idNbrIngredientOrDish);
-    if(list.ingredient) {
-        const existingIngredients = list.ingredient.map(ingredient => ingredient.toString());
-        result.idIngredients.forEach(async newIngredient => {
-            const existingIndex = existingIngredients.findIndex(
-                existing => existing === newIngredient.toString()
-            );
-            if (existingIndex !== -1) {
-                const ingredient = await NumberOfIngredients.findById(newIngredient) as INumberOfIngredient;
-                if (!ingredient) {
-                    throw new Error("Ingrédient introuvable");
-                }
-                await NumberOfIngredientsServices.addQuantityNumberOfIngredient(newIngredient, ingredient.ingredient.toString(), ingredient.unitOfMeasurement.toString(), Number(ingredient.quantity));
-            } else {
-                existingIngredients.push(newIngredient.toString());
+    let ingredientIdsInList: string[] = [];
+
+    if(list.ingredient && list.ingredient.length > 0) {
+        ingredientIdsInList = list.ingredient.map(ingredient => ingredient.toString());
+        
+        for (const newIngredient of result.idIngredients) {
+            const findIngredientByIdInResult = await NumberOfIngredients.findById(newIngredient)
+                .populate('ingredient')
+                .populate('unitOfMeasurement');
+                
+            if (!findIngredientByIdInResult) {
+                throw new Error("Ingrédient introuvable");
             }
-        });
-        result.idIngredients = existingIngredients;
+
+            const existingIngredient = await NumberOfIngredients.findOne({
+                _id: { $in: ingredientIdsInList },
+                'ingredient.name': findIngredientByIdInResult.ingredient.name
+            }).populate('ingredient').populate('unitOfMeasurement');
+
+            if (existingIngredient) {
+                await NumberOfIngredientsServices.addQuantityNumberOfIngredient(
+                    existingIngredient._id.toString(),
+                    findIngredientByIdInResult.ingredient._id.toString(),
+                    findIngredientByIdInResult.unitOfMeasurement._id.toString(),
+                    Number(findIngredientByIdInResult.quantity)
+                );
+            } else {
+                ingredientIdsInList.push(newIngredient.toString());
+            }
+        }
+    } else {
+        ingredientIdsInList = result.idIngredients;
     }
 
+    const createPromises = ingredientIdsInList.map(async ingredientId => {
+        const ingredient = await NumberOfIngredients.findById(ingredientId);
+        if (!ingredient) {
+            throw new Error("Ingrédient introuvable");
+        }
+        const newIngredient = await NumberOfIngredientsServices.createNumberOfIngredients(
+            ingredient.ingredient.toString(),
+            ingredient.unitOfMeasurement.toString(), 
+            Number(ingredient.quantity)
+        );
+        return newIngredient._id;
+    });
+
+    const arrayOfNumberOfIngredientsId = await Promise.all(createPromises);
+    
     const updateData = {
-        ingredient: result.idIngredients,
+        ingredient: arrayOfNumberOfIngredientsId,
         ...(result.idDish && { dish: result.idDish }),
         ...(nameList && { name: formatIngredientName(nameList) })
     };
