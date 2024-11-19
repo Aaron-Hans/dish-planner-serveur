@@ -1,8 +1,10 @@
+import path from "path";
 import Dishes, { IDishes } from "../models/Dishes";
 import NumberOfIngredients, { INumberOfIngredient } from "../models/NumberOfIngredient";
 import ShoppingList, { IShoppingList } from "../models/ShoppingList";
 import { formatIngredientName } from "../utils/formatedIngredientName"
 import NumberOfIngredientsServices from "./NumberOfIngredientServices";
+import Ingredient from "../models/Ingredient";
 
 const createList = async (listName?: string):Promise<IShoppingList> => {
     if (!listName) {
@@ -18,90 +20,88 @@ const createList = async (listName?: string):Promise<IShoppingList> => {
     return newShoppingList;
 }
 
-const updateList = async(idList: string, nameList: string, idNbrIngredientOrDish: string): Promise<IShoppingList> => {
+const updateList = async(idList: string, nameList: string, idNbrIngredientOrDish: string) => {
 
     if (!idList || !idNbrIngredientOrDish) {
         throw new Error("information manquante")
     }
-    const list = await ShoppingList.findById(idList);
+    const list = await ShoppingList.findById(idList)
+    .populate({
+        path: "ingredient",
+        populate : [
+            {path: "ingredient", select: "-_id name"}
+        ]
+    });
+    
 
     if (!list) {
         throw new Error("la list n'existe pas");
     }
 
-    const result = await addIngredientToTheListByDishOrNbrIngredient(idNbrIngredientOrDish);
-    let ingredientIdsInList: string[] = [];
+    const disheOrNumberOfIngredientToAdd = await addIngredientToTheListByDishOrNbrIngredient(idNbrIngredientOrDish);
 
-    if(list.ingredient && list.ingredient.length > 0) {
-        ingredientIdsInList = list.ingredient.map(ingredient => ingredient.toString());
+    if (list.ingredient && list.ingredient.length > 0) {
+        const ingredientNameInTheList = list.ingredient.map(item => item.ingredient.name)
+
+        // console.log(ingredientNameInTheList);
+        for (const numberOfIngredientId of disheOrNumberOfIngredientToAdd.idIngredients) {
+            const numberOfIngredientToAddOrUpdate = await NumberOfIngredients.findById(numberOfIngredientId)
+            .populate('ingredient')
+            .populate('unitOfMeasurement');
+
+            if (!numberOfIngredientToAddOrUpdate) {
+                throw new Error("Nombre d'ingrédient introuvable");
+            }
+
+            if (ingredientNameInTheList.includes(numberOfIngredientToAddOrUpdate.ingredient.name)) {
+
+                const ingredientName = await Ingredient.find({name: numberOfIngredientToAddOrUpdate.ingredient.name});
+
+                if (!ingredientName) {
+                    throw new Error('ingredient non trouvé');
+                }
+
+                const ingredientId = ingredientName[0]._id;
+
+                const allNumberOfIngredientHavingThisIngredientId = await NumberOfIngredients.find({ingredient: ingredientId});
+
+                await ShoppingList.updateOne(
+                    { _id: list._id, "ingredient": {$in: allNumberOfIngredientHavingThisIngredientId}},
+                    {
+                        $set: {
+                            "ingredient.$.quantity": numberOfIngredientToAddOrUpdate.quantity, 
+                            "ingredient.$.unitOfMeasurement": numberOfIngredientToAddOrUpdate.unitOfMeasurement
+                        }    
+                    }
+                    )
+
+
+                // NumberOfIngredientsServices.createNumberOfIngredients(numberOfIngredientToAddOrUpdate.ingredient._id as string, numberOfIngredientToAddOrUpdate.unitOfMeasurement._id as string, numberOfIngredientToAddOrUpdate.quantity as number)
+
+                console.log(allNumberOfIngredientHavingThisIngredientId) 
+            }
+            
+
+            // console.log(findNumberOfIngredient.ingredient.name);
+            
+        }
+    }
+
+    for(const numberOfIngredientId of disheOrNumberOfIngredientToAdd.idIngredients) {
+        const numberOfIngredientToAdd = await NumberOfIngredients.findById(numberOfIngredientId)
+
+        if (!numberOfIngredientToAdd) {
+            throw new Error("nombre d'ingredient introuvable");           
+        }
+
+        NumberOfIngredientsServices.createNumberOfIngredients(numberOfIngredientToAdd.ingredient._id as string, numberOfIngredientToAdd.unitOfMeasurement._id as string, numberOfIngredientToAdd.quantity as number)
+
+
         
-        for (const newIngredient of result.idIngredients) {
-            const findIngredientByIdInResult = await NumberOfIngredients.findById(newIngredient)
-                .populate('ingredient')
-                .populate('unitOfMeasurement');
-                
-            if (!findIngredientByIdInResult) {
-                throw new Error("Ingrédient introuvable");
-            }
 
-            const existingIngredient = await NumberOfIngredients.findOne({
-                _id: { $in: ingredientIdsInList },
-                'ingredient.name': findIngredientByIdInResult.ingredient.name
-            }).populate('ingredient').populate('unitOfMeasurement');
-
-            if (existingIngredient) {
-                await NumberOfIngredientsServices.addQuantityNumberOfIngredient(
-                    existingIngredient._id.toString(),
-                    findIngredientByIdInResult.ingredient._id.toString(),
-                    findIngredientByIdInResult.unitOfMeasurement._id.toString(),
-                    Number(findIngredientByIdInResult.quantity)
-                );
-            } else {
-                ingredientIdsInList.push(newIngredient.toString());
-            }
-        }
-    } else {
-        ingredientIdsInList = result.idIngredients;
     }
 
-    const createPromises = ingredientIdsInList.map(async ingredientId => {
-        const ingredient = await NumberOfIngredients.findById(ingredientId);
-        if (!ingredient) {
-            throw new Error("Ingrédient introuvable");
-        }
-        const newIngredient = await NumberOfIngredientsServices.createNumberOfIngredients(
-            ingredient.ingredient.toString(),
-            ingredient.unitOfMeasurement.toString(), 
-            Number(ingredient.quantity)
-        );
-        return newIngredient._id;
-    });
 
-    const arrayOfNumberOfIngredientsId = await Promise.all(createPromises);
-    
-    const updateData = {
-        ingredient: arrayOfNumberOfIngredientsId,
-        ...(result.idDish && { dish: result.idDish }),
-        ...(nameList && { name: formatIngredientName(nameList) })
-    };
-
-    const updatedList = await ShoppingList.findByIdAndUpdate(
-        idList,
-        updateData,
-        { new: true }
-    ).populate({
-        path: "ingredient",
-        populate: [
-            {path: 'ingredient', model: 'ingredients', select: "name"},
-            {path: 'unitOfMeasurement', model: 'unit_of_measurement', select: "name"}
-        ]
-    });
-
-    if (!updatedList) {
-        throw new Error("Erreur lors de la mise à jour de la liste");
-    }
-
-    return updatedList;
 }
 
 const addIngredientToTheListByDishOrNbrIngredient = async(idNbrIngredientOrDish: string): Promise<{idIngredients: string[], idDish?: string}> => {
