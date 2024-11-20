@@ -4,8 +4,8 @@ const port = process.env.PORT || 3000;
 import unitOFMeasurementRoutes from '../routes/unitOfMeasurementRoutes';
 import ingredientsRoutes from '../routes/ingredientRoutes';
 import numberOfIngredientsRoutes from '../routes/numberOfIngredientRoutes'
-import disheRoute from '../routes/disheRoutes'
-
+import disheRoutes from '../routes/disheRoutes'
+import shoppingListRoutes from '../routes/shoppingListRoutes'
 function connectToServeur() {
 
     
@@ -21,6 +21,7 @@ function serveurRoutes() {
     serveur.use('/unit', unitOFMeasurementRoutes); 
     serveur.use('/ingredient', ingredientsRoutes);
     serveur.use('/number', numberOfIngredientsRoutes);
-    serveur.use('/dishe', disheRoute)
+    serveur.use('/dishe', disheRoutes)
+    serveur.use('/list', shoppingListRoutes)
 }
 export { connectToServeur };
