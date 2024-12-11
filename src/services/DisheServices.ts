@@ -1,10 +1,10 @@
 import Dishes, { IDishes } from "../models/Dishes"
 import NumberOfIngredient, { INumberOfIngredient } from "../models/NumberOfIngredient";
-import { formatIngredientName } from "../utils/formatedIngredientName";
+import { formatedProductName } from "../utils/formatedProductName";
 import NumberOfIngredientServices from "./NumberOfIngredientServices";
 
 const createDish = async (dishName: string, numbersOfIngredientsId: INumberOfIngredient[], numberOfPerson: number): Promise<IDishes> => {
-    const formattedDishName = formatIngredientName(dishName) as string;
+    const formattedDishName = formatedProductName(dishName) as string;
     const createPromises = numbersOfIngredientsId.map(async (numberOfIngredientId: INumberOfIngredient) => {
         if (!numberOfIngredientId.ingredient) {
             throw new Error("L'ingrédient n'est pas renseigné");
@@ -67,7 +67,7 @@ const modifyDish = async (dishId: string, dishName: string, numbersOfIngredients
         throw new Error("Nom du plat non renseigné");
     }
 
-    const formattedDishName = formatIngredientName(dishName);
+    const formattedDishName = formatedProductName(dishName);
 
     const dish = await Dishes.findById(dishId);
 

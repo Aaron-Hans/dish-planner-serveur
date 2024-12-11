@@ -1,9 +1,9 @@
 import mongoose, {Document, Schema, Model} from "mongoose";
-import { IIngredient } from "./Ingredient";
+import { IProduct } from "./Product";
 import { IUnitOfMeasurement } from "./UnitOfMeasurement";
 
 export interface INumberOfIngredient extends Document {
-    ingredient: IIngredient;
+    ingredient: IProduct;
     unitOfMeasurement: IUnitOfMeasurement;
     quantity: Number;
 }

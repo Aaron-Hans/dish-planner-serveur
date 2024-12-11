@@ -1,4 +1,4 @@
-import Ingredient from '../models/Ingredient';
+import Ingredient from '../models/Product';
 import NumberOfIngredients, { INumberOfIngredient } from '../models/NumberOfIngredient';
 import UnitOfMeasurement from '../models/UnitOfMeasurement';
 import { initiateUnite } from '../utils/initiateUnite';
