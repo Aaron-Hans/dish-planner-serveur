@@ -1,0 +1,641 @@
+{
+	"info": {
+		"_postman_id": "b152f006-e3de-43e3-abd8-e48388796b10",
+		"name": "GrosseryPlanner",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28086567"
+	},
+	"item": [
+		{
+			"name": "Unit",
+			"item": [
+				{
+					"name": "postUnit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n       \"unitName\": \"nbr\"\n   }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/unit/post-unit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"unit",
+								"post-unit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUnits",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/unit/find-all-unit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"unit",
+								"find-all-unit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUnitByName",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nameOfUnitOFMeasurement\": \"L\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/unit/find-unit-by-name/Kg",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"unit",
+								"find-unit-by-name",
+								"Kg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUnitById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/unit/get-unit-by-id/671108eabfa40f09555b398d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"unit",
+								"get-unit-by-id",
+								"671108eabfa40f09555b398d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "product",
+			"item": [
+				{
+					"name": "postProduct",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productName\":\"courgette\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/product/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"product",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "putProduct",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productId\": \"6760339b70b8039806d495ca\",\n    \"newProductName\" : \"champignon\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/product/put",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"product",
+								"put"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProduct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/product/get-all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"product",
+								"get-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProductByName",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/product/get-by-name/Tedt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"product",
+								"get-by-name",
+								"Tedt"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "eazrazed",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProductById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/product/get-by-id/676033232adcca0a93e15d60",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"product",
+								"get-by-id",
+								"676033232adcca0a93e15d60"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProductByName",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/product/delete/676033232adcca0a93e15d60",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"product",
+								"delete",
+								"676033232adcca0a93e15d60"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ingredient",
+			"item": [
+				{
+					"name": "postIngredient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productId\":\"676939065cc650091a36d71f\",\n    \"unitName\": \"g\",\n    \"quantity\": 500\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/ingredient/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"ingredient",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "putIngredient",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ingredientId\" : \"67603b733035cb9a5cb3d1b0\",\n    \"unitName\": \"6716416657b512d7c1e00847\",\n    \"quantity\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/ingredient/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"ingredient",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteIngredient",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/ingredient/delete/676939195cc650091a36d722",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"ingredient",
+								"delete",
+								"676939195cc650091a36d722"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "recipe",
+			"item": [
+				{
+					"name": "postRecipe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"recipeName\": \"bolobolo\",\n    \"listOfIngredient\" : [\n        {\n            \"product\":\"6760339b70b8039806d495ca\",\n            \"unit\": \"g\",\n            \"quantity\": 500\n        }             \n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/recipe/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"recipe",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRecipe",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"recipeId\":\"6780da0950072bbfcf14c7b6\",\n    \"recipeName\": \"updateTesssst\",\n    \"listOfIngredient\" : [\n        {   \n            \"product\":\"6777ada88151def0196c20cb\",\n            \"unit\": \"g\",\n            \"quantity\": 20\n        },\n        {   \n            \"_id\": \"6777ae088151def0196c20d4\",\n            \"product\":\"6777ada88151def0196c20cb\",\n            \"unit\": \"g\",\n            \"quantity\": 20\n        }\n    ]\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/recipe/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"recipe",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteRecipe",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/recipe/delete/6780d7cc24d3c897d2830913",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"recipe",
+								"delete",
+								"6780d7cc24d3c897d2830913"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRecipe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/recipe/find/6780da0950072bbfcf14c7b6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"recipe",
+								"find",
+								"6780da0950072bbfcf14c7b6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRecipes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/recipe/find-all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"recipe",
+								"find-all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "list",
+			"item": [
+				{
+					"name": "postList",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"shoppingListName\": \"ma super liste !\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/list/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"list",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "putList",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"idShoppingList\": \"6780dd9dff6adddde4df2ab1\",\n    \"shoppingListName\": \"liste test 1\",\n    \"idNbrIngredientOrDish\": \"6780da0950072bbfcf14c7b6\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/list/put",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"list",
+								"put"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteList",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/list/delete/6729dfaa83a698bda95a5fe3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"list",
+								"delete",
+								"6729dfaa83a698bda95a5fe3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/list/get/6780dd9dff6adddde4df2ab1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"list",
+								"get",
+								"6780dd9dff6adddde4df2ab1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/list/get-all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"list",
+								"get-all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
