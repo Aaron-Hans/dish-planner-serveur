@@ -12,13 +12,7 @@ Pour installer l'application, suivez les étapes ci-dessous :
    git clone https://github.com/Aaron-Hans/dish-planner-serveur
    ```
 
-2. Accédez au répertoire du projet :
-
-   ```bash
-   cd DishPlanneurServeur
-   ```
-
-3. Installez les dépendances :
+2. Installez les dépendances :
    ```bash
    npm install
    ```
