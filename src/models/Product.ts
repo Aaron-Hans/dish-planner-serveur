@@ -8,8 +8,6 @@ const Productchema = new Schema({
     name: {type: String, unique: true, required: true},    
 })
 
-
-
 const Product: Model<IProduct> = mongoose.model<IProduct>('products', Productchema);
 
 export default Product;

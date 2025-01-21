@@ -15,7 +15,7 @@ const createProduct = async (productName: string): Promise<IProduct> => {
     productName = formatedProductName(productName);
     const newProduct: IProduct = new Product({ name: productName });
     await newProduct.save();
-    logger.info("Product created successfully", {productName});
+    logger.info("Product created successfully", {product: newProduct});
     return newProduct;
 }
 
