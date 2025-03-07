@@ -1,8 +1,11 @@
 import express from 'express';
-const router = express.Router();
 import productController from '../controllers/productController';
+import multer from 'multer';
 
-router.post('/post', productController.postProduct);
+const router = express.Router();
+const upload = multer();
+
+router.post('/post', upload.single("file"), productController.postProduct);
 router.put('/put', productController.putProduct);
 router.get('/get-all', productController.getAllProducts);
 router.get('/get-by-name/:productName', productController.getProductByName);

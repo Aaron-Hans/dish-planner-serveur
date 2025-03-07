@@ -3,6 +3,9 @@ import ProductServices from '../services/ProductServices';
 import { Request, Response } from 'express';
 import { formatedProductName } from '../utils/formatedProductName';
 import logger from '../config/logger';
+import {uploadBufferToS3} from '../utils/s3Service'
+
+
 
 /**
  * Creates a new product
@@ -11,10 +14,19 @@ import logger from '../config/logger';
  * @returns Promise<void> - Returns 201 with created product or error status codes
  */
 const postProduct = async (req: Request, res: Response): Promise<void> => {
-    const { productName } = req.body;
-    logger.debug('Attempting to create product', { productName });
     try {    
-        const newProduct = await ProductServices.createProduct(productName)
+        let { productName } = req.body;
+        const file = req.file; // get image
+
+        logger.debug('Attempting to create product', { productName });
+
+        let imageUrl = "";
+
+        if (file) {
+            imageUrl = await uploadBufferToS3(file.buffer, 'product', productName)
+        }
+
+        const newProduct = await ProductServices.createProduct(productName, imageUrl)
         logger.info('Product created successfully', { productId: newProduct._id });
         res.status(201).json({ message: "Produit créé avec succès", produit: newProduct });
     } catch (error) {
@@ -185,5 +197,6 @@ const productController = {
     getProductById,
     deleteProductByName
 };
+
 
 export default productController;

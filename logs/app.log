@@ -1,3 +1,88 @@
 {"level":"info","message":"Connexion à la base de donnée ok","timestamp":"2025-01-13 17:07:22"}
 {"level":"info","message":"Shopping list created successfully","shoppingListName":"Ma super liste !","timestamp":"2025-01-13 17:07:46"}
 {"level":"info","listId":"67853a527a58031f6f540d90","message":"Shopping list created successfully","timestamp":"2025-01-13 17:07:46"}
+{"level":"info","message":"Connexion à la base de donnée ok","timestamp":"2025-02-25 14:08:48"}
+{"count":3,"level":"info","message":"Recipes retrieved successfully","timestamp":"2025-02-25 14:56:40"}
+{"count":3,"level":"info","message":"Recipes retrieved successfully","timestamp":"2025-02-25 14:57:04"}
+{"level":"info","message":"Connexion à la base de donnée ok","timestamp":"2025-02-25 15:05:39"}
+{"count":3,"level":"info","message":"Recipes retrieved successfully","timestamp":"2025-02-25 15:07:42"}
+{"count":3,"level":"info","message":"Recipes retrieved successfully","timestamp":"2025-02-25 15:13:03"}
+{"count":3,"level":"info","message":"Recipes retrieved successfully","timestamp":"2025-02-25 15:13:57"}
+{"count":3,"level":"info","message":"Recipes retrieved successfully","timestamp":"2025-02-25 15:15:39"}
+{"count":3,"level":"info","message":"Recipes retrieved successfully","timestamp":"2025-02-25 15:16:42"}
+{"count":3,"level":"info","message":"Recipes retrieved successfully","timestamp":"2025-02-25 15:18:05"}
+{"count":3,"level":"info","message":"Recipes retrieved successfully","timestamp":"2025-02-25 15:19:29"}
+{"level":"info","message":"Connexion à la base de donnée ok","timestamp":"2025-02-25 15:29:07"}
+{"level":"info","message":"Connexion à la base de donnée ok","timestamp":"2025-02-25 15:29:31"}
+{"level":"info","message":"Connexion à la base de donnée ok","timestamp":"2025-02-25 15:33:14"}
+{"level":"info","message":"Connexion à la base de donnée ok","timestamp":"2025-02-25 15:33:57"}
+{"level":"info","message":"Connexion à la base de donnée ok","timestamp":"2025-02-25 15:36:44"}
+{"level":"info","message":"All recipe was find successfully","timestamp":"2025-02-25 15:36:52"}
+{"count":3,"level":"info","message":"Recipes retrieved successfully","timestamp":"2025-02-25 15:36:52"}
+{"level":"info","message":"All recipe was find successfully","timestamp":"2025-02-25 15:40:38"}
+{"count":3,"level":"info","message":"Recipes retrieved successfully","timestamp":"2025-02-25 15:40:38"}
+{"level":"info","message":"All recipe was find successfully","timestamp":"2025-03-03 13:25:43"}
+{"count":3,"level":"info","message":"Recipes retrieved successfully","timestamp":"2025-03-03 13:25:43"}
+{"level":"info","message":"All recipe was find successfully","timestamp":"2025-03-03 13:37:18"}
+{"count":3,"level":"info","message":"Recipes retrieved successfully","timestamp":"2025-03-03 13:37:18"}
+{"level":"info","message":"Connexion à la base de donnée ok","timestamp":"2025-03-03 14:10:25"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-03 14:10:57"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-03 14:12:57"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-03 14:13:19"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-03 14:13:22"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-03 14:13:31"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-03 14:13:36"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-03 14:13:50"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-03 14:38:20"}
+{"level":"info","message":"Connexion à la base de donnée ok","timestamp":"2025-03-04 09:20:51"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 09:21:54"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 09:51:46"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 09:51:56"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 09:59:50"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 09:59:54"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 10:03:11"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 10:03:15"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 10:04:24"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 10:04:25"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 10:07:52"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 10:07:56"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 10:08:14"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 10:08:19"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 10:12:28"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 10:17:05"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 10:17:28"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 11:21:45"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 11:24:40"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 11:24:42"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 11:25:42"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 11:25:49"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 11:28:40"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 11:29:44"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 11:32:45"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 11:32:48"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-04 11:32:53"}
+{"level":"info","message":"Connexion à la base de donnée ok","timestamp":"2025-03-07 11:52:32"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-07 11:54:44"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-07 11:56:19"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-07 11:57:38"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-07 12:02:49"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-07 12:08:39"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-07 12:27:50"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-07 12:27:55"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-07 12:27:58"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-07 12:28:37"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-07 12:29:01"}
+{"count":7,"level":"info","message":"Products retrieved successfully","timestamp":"2025-03-07 12:29:03"}
+{"level":"info","message":"Connexion à la base de donnée ok","timestamp":"2025-03-07 13:35:10"}
+{"level":"error","message":"Product not found when creating ingredient","timestamp":"2025-03-07 13:35:38"}
+{"level":"error","message":"Error creating ingredient: Ingrédient non trouvé","stack":"Error: Ingrédient non trouvé\n    at /Users/aaronhans/Documents/Perso/Projet/DishPlannerServeur/src/services/IngredientServices.ts:18:15\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/aaronhans/Documents/Perso/Projet/DishPlannerServeur/src/services/IngredientServices.ts:5:58)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2025-03-07 13:35:38"}
+{"code":"AccessControlListNotSupported","extendedRequestId":"7G7cv5x3gindOKrX3T66epTwqtJNm1GmJtx7Se+GXucYioB1tKn1HaRMdBvrEYyh3l955vHZKSL7/nkBFweXlQ==","level":"error","message":"The bucket does not allow ACLs","region":null,"requestId":"452F1MZWP1BGQ7NM","retryDelay":47.067020962812634,"retryable":false,"stack":"AccessControlListNotSupported: The bucket does not allow ACLs\n    at Request.extractError (/Users/aaronhans/Documents/Perso/Projet/DishPlannerServeur/node_modules/aws-sdk/lib/services/s3.js:757:35)\n    at Request.callListeners (/Users/aaronhans/Documents/Perso/Projet/DishPlannerServeur/node_modules/aws-sdk/lib/sequential_executor.js:106:20)\n    at Request.emit (/Users/aaronhans/Documents/Perso/Projet/DishPlannerServeur/node_modules/aws-sdk/lib/sequential_executor.js:78:10)\n    at Request.emit (/Users/aaronhans/Documents/Perso/Projet/DishPlannerServeur/node_modules/aws-sdk/lib/request.js:686:14)\n    at Request.transition (/Users/aaronhans/Documents/Perso/Projet/DishPlannerServeur/node_modules/aws-sdk/lib/request.js:22:10)\n    at AcceptorStateMachine.runTo (/Users/aaronhans/Documents/Perso/Projet/DishPlannerServeur/node_modules/aws-sdk/lib/state_machine.js:14:12)\n    at /Users/aaronhans/Documents/Perso/Projet/DishPlannerServeur/node_modules/aws-sdk/lib/state_machine.js:26:10\n    at Request.<anonymous> (/Users/aaronhans/Documents/Perso/Projet/DishPlannerServeur/node_modules/aws-sdk/lib/request.js:38:9)\n    at Request.<anonymous> (/Users/aaronhans/Documents/Perso/Projet/DishPlannerServeur/node_modules/aws-sdk/lib/request.js:688:12)\n    at Request.callListeners (/Users/aaronhans/Documents/Perso/Projet/DishPlannerServeur/node_modules/aws-sdk/lib/sequential_executor.js:116:18)","statusCode":400,"time":"2025-03-07T12:39:01.175Z","timestamp":"2025-03-07 13:39:01"}
+{"level":"info","message":"Connexion à la base de donnée ok","timestamp":"2025-03-07 13:41:20"}
+{"code":11000,"errorResponse":{"code":11000,"errmsg":"E11000 duplicate key error collection: grocery_planner.products index: name_1 dup key: { name: \"Courgette\" }","index":0,"keyPattern":{"name":1},"keyValue":{"name":"Courgette"}},"index":0,"keyPattern":{"name":1},"keyValue":{"name":"Courgette"},"level":"error","message":"Error creating product: E11000 duplicate key error collection: grocery_planner.products index: name_1 dup key: { name: \"Courgette\" }","stack":"MongoServerError: E11000 duplicate key error collection: grocery_planner.products index: name_1 dup key: { name: \"Courgette\" }\n    at InsertOneOperation.execute (/Users/aaronhans/Documents/Perso/Projet/DishPlannerServeur/node_modules/mongodb/src/operations/insert.ts:82:13)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async tryOperation (/Users/aaronhans/Documents/Perso/Projet/DishPlannerServeur/node_modules/mongodb/src/operations/execute_operation.ts:263:14)\n    at async executeOperation (/Users/aaronhans/Documents/Perso/Projet/DishPlannerServeur/node_modules/mongodb/src/operations/execute_operation.ts:109:12)\n    at async Collection.insertOne (/Users/aaronhans/Documents/Perso/Projet/DishPlannerServeur/node_modules/mongodb/src/collection.ts:277:12)","timestamp":"2025-03-07 13:41:28"}
+{"imageUrl":"https://dishplanner-bucket.s3.eu-north-1.amazonaws.com/images/product/Courgette","level":"info","message":"✅ Produit créé avec succès","productName":"Courgette","timestamp":"2025-03-07 13:42:00"}
+{"level":"info","message":"Product created successfully","productId":"67cae9985eb66ad05a2d69cc","timestamp":"2025-03-07 13:42:00"}
+{"level":"info","message":"Connexion à la base de donnée ok","timestamp":"2025-03-07 13:45:49"}
+{"imageUrl":"https://dishplanner-bucket.s3.eu-north-1.amazonaws.com/images/product/Courgette","level":"info","message":"✅ Produit créé avec succès","productName":"Courgette","timestamp":"2025-03-07 13:45:57"}
+{"level":"info","message":"Product created successfully","productId":"67caea85f68d83a84e301d47","timestamp":"2025-03-07 13:45:57"}
+{"imageUrl":"https://dishplanner-bucket.s3.eu-north-1.amazonaws.com/images/product/Courgette","level":"info","message":"✅ Produit créé avec succès","productName":"Courgette","timestamp":"2025-03-07 14:01:33"}
+{"level":"info","message":"Product created successfully","productId":"67caee2df68d83a84e301d49","timestamp":"2025-03-07 14:01:33"}

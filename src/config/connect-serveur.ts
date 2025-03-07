@@ -1,6 +1,6 @@
 import express from 'express';
 const serveur = express();
-const port = process.env.PORT || 3000;
+const port = Number(process.env.PORT) || 3000;
 import productRoutes from '../routes/productRoutes';
 import ingredientRoutes from '../routes/ingredientRoutes'
 import recipeRoutes from '../routes/recipeRoutes'
@@ -12,9 +12,10 @@ import shoppingListRoutes from '../routes/shoppingListRoutes'
  */
 function connectToServeur() {
     
-    serveur.listen(port, () => {
-        console.log(`Serveur lancé sur le port ${port}`);
-    });
+serveur.listen(port, '0.0.0.0', () => {
+    console.log(`Serveur lancé sur http://0.0.0.0:${port}`);
+});
+
     serveur.use(express.json());
     
     serveurRoutes();

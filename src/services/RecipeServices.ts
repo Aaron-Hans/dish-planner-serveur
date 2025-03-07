@@ -56,6 +56,33 @@ const createRecipe = async (recipeName: string, listOfIngredient: IIngredient[])
 }
 
 /**
+ * Finds all recipes with populated ingredients
+ * @returns Promise<IRecipe[]> - An array of recipes with populated ingredients
+ */ 
+const findeRecipes = async () : Promise<IRecipe[]> => {
+    try {
+        const recipe = await Recipe.find()
+        .populate({
+            path: "ingredient",
+            populate: [
+                {path: 'product', model: 'products', select: "name"},
+            ]
+        });
+
+        if(!recipe){
+            logger.error("No recipe found");
+            throw new Error('aucun plat trouvée');
+        }
+
+        logger.info("All recipe was find successfully");
+        return recipe;
+    } catch (error) {
+        logger.error("Error in findeRecipes", {error});
+        throw error;
+    }
+}
+
+/**
  * Finds a recipe by its ID
  * @param recipeId - The ID of the recipe to find
  * @returns Promise<IRecipe> - The found recipe with populated ingredients
@@ -215,6 +242,7 @@ const removeRecipe = async (recipeId: string): Promise<void> => {
 export default { 
     createRecipe,
     findRecipe,
+    findeRecipes,
     modifyRecipe,
     removeRecipe
 };

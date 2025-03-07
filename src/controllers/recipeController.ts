@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import Recipe from "../models/Recipe";
 import RecipeServices from "../services/RecipeServices";
 import logger from '../config/logger';
+
 
 /**
  * Creates a new recipe
@@ -65,7 +65,7 @@ const getRecipe = async(req:Request, res:Response):Promise<void> => {
 const getAllRecipes = async(req:Request, res:Response):Promise<void> => {
     logger.debug('Attempting to retrieve all recipes');
     try {
-        const allDishes = await Recipe.find();
+        const allDishes = await RecipeServices.findeRecipes();
 
         if (allDishes.length === 0) {
             logger.info('No recipes found');

@@ -3,21 +3,33 @@ import { formatedProductName } from '../utils/formatedProductName';
 import logger from '../config/logger';
 
 /**
- * Creates a new product in the database
- * @param productName - The name of the product to create
- * @returns Promise<IProduct> - The newly created product
+ * Creates a new product in the database with an image URL
+ * @param productName - The name of the product
+ * @param imageUrl - The URL of the uploaded image (optional)
+ * @returns Promise<IProduct> - The created product
  */
-const createProduct = async (productName: string): Promise<IProduct> => {
+const createProduct = async (productName: string, imageUrl?: string): Promise<IProduct> => {
     if (!productName) {
         logger.error("Cannot create product without name");
-        throw new Error("impossible de créer un produit sans le nom")
+        throw new Error("Impossible de créer un produit sans le nom");
     }
+
+    // 🔹 Formatage du nom
     productName = formatedProductName(productName);
-    const newProduct: IProduct = new Product({ name: productName });
+
+    // 🔹 Création du produit en DB avec l'URL de l’image
+    const newProduct: IProduct = new Product({ 
+        name: productName, 
+        image: imageUrl || null  // ✅ On garde `null` si pas d'image
+    });
+
     await newProduct.save();
-    logger.info("Product created successfully", {productName});
+
+    logger.info("✅ Produit créé avec succès", { productName, imageUrl });
     return newProduct;
-}
+};
+
+
 
 /**
  * Finds a product by its name
