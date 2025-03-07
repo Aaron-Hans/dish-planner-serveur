@@ -22,16 +22,16 @@ const mimeTypes: { [key: string]: string } = {
  */
 export const uploadBufferToS3 = async (fileBuffer: Buffer, folder: string, fileName?: string): Promise<string> => {
   try {
-    const finalFileName = fileName || `${Date.now()}.jpg`; // 🔹 Par défaut en JPG
-    const extension = finalFileName.split('.').pop()?.toLowerCase() || "jpg"; // 🔥 Récupère l'extension
-    const fileType = mimeTypes[extension] || "image/jpeg"; // 🔥 Détecte le type MIME
+    const finalFileName = fileName || `${Date.now()}.jpg`;
+    const extension = finalFileName.split('.').pop()?.toLowerCase() || "jpg"; 
+    const fileType = mimeTypes[extension] || "image/jpeg"; 
 
     const key = `images/${folder}/${finalFileName}`;
     const params: AWS.S3.PutObjectRequest = {
       Bucket: 'dishplanner-bucket',
       Key: key,
       Body: fileBuffer,
-      ContentType: fileType, // ✅ Type détecté automatiquement
+      ContentType: fileType, 
     };
 
     console.log(`🛠️ Uploading file: ${finalFileName}, Type: ${fileType}`);

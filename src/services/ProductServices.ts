@@ -14,10 +14,8 @@ const createProduct = async (productName: string, imageUrl?: string): Promise<IP
         throw new Error("Impossible de créer un produit sans le nom");
     }
 
-    // 🔹 Formatage du nom
     productName = formatedProductName(productName);
 
-    // 🔹 Création du produit en DB avec l'URL de l’image
     const newProduct: IProduct = new Product({ 
         name: productName, 
         image: imageUrl || null  // ✅ On garde `null` si pas d'image
